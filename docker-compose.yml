@@ -1,0 +1,27 @@
+version: "2.2"
+services:
+  mio_webserver:
+    #image: php:7.2-apache
+    build: .
+    ports:
+      - 8080:80
+      - 8043:443
+    volumes:
+      - ./php:/var/www/html
+
+  mio_dbserver:
+    image: mysql:5.7
+    container_name: mysqlHost
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=giovanni
+
+  mio_phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - 8081:80
+    environment: 
+      - PMA_ARBITRARY=1
